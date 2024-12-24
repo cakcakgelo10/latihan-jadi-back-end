@@ -1,3 +1,4 @@
+// Sistem operasi
 const os = require("os");
 
 console.log("Nama Host:", os.hostname());

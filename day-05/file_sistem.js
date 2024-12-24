@@ -1,3 +1,5 @@
+// fs digunakan untuk bekerja dengan file.
+
 // Membaca file
 const fs = require("fs");
 fs.readFile("file.txt", "utf8", (err, data) => {

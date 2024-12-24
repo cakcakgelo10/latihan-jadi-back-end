@@ -1,3 +1,4 @@
+// http digunakan untuk membuat server web.
 const http = require("http");
 
 const server = http.createServer((req, res) => {

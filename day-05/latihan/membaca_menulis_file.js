@@ -1,4 +1,4 @@
-const fs = require("fs");
+// Membaca dan Menulis File
 
 fs.readFile("data.txt", "utf8", (err, data) => {
     if (err) {
