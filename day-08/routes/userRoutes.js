@@ -52,6 +52,26 @@ router.post("/", async (req, res) => {
     res.status(201).send("Pengguna baru berhasil ditambahkan.");
 });
 
+// Rute POST (Menambahkan Pengguna Baru):
+router.post("/", async (req, res) => {
+    const users = await readFile();
+    const { id, name, email } = req.body;
+
+    const error = validateInput(id, email);
+    if (error) {
+        return res.status(400).send(error);
+    }
+
+    if (!name) {
+        return res.status(400).send("Nama tidak boleh kosong.");
+    }
+
+    users.push({ id, name, email });
+    await writeFile(users);
+    res.status(201).send("Pengguna baru berhasil ditambahkan.");
+});
+
+
 // PUT /users/:id - Memperbarui pengguna berdasarkan ID
 router.put("/:id", async (req, res) => {
     const users = await readFile();
