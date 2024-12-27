@@ -16,4 +16,10 @@ const writeFile = async (data) => {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 };
 
-module.exports = { readFile, writeFile};
+//  Fitur Backup File JSON
+const backupFile = async () => {
+    const backupPath = "./data/backup_users.json";
+    await fs.copyFile(filePath, backupPath);
+};
+
+module.exports = { readFile, writeFile, backupFile };
