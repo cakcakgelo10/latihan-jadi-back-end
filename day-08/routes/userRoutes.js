@@ -8,6 +8,26 @@ router.get("/", async (req, res) => {
     res.json(users);
 });
 
+// GET /users/search?name=Nama - Mencari pengguna berdasarkan nama
+router.get("/search", async (req, res) => {
+    const users = await readFile();
+    const { name } = req.query;
+
+    if (!name) {
+        return res.status(400).send("Parameter 'name' diperlukan.");
+    }
+
+    const filteredUsers = users.filter(user => 
+        user.name.toLowerCase().includes(name.toLowerCase())
+    );
+
+    if (filteredUsers.length === 0) {
+        return res.status(404).send("Pengguna dengan nama tersebut tidak ditemukan.");
+    }
+
+    res.json(filteredUsers);
+});
+
 // POST /users - Menambahkan pengguna baru
 router.post("/", async (req, res) => {
     const users = await readFile();
