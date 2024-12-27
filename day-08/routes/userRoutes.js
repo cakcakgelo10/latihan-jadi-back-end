@@ -14,6 +14,19 @@ const validateInput = (id, email) => {
     return null;
 };
 
+// Tambah rute untuk memicu backup:
+const { readFile, writeFile, backupFile } = require("../utils/fileHandler");
+
+// GET /users/backup - Membuat backup file JSON
+router.get("/backup", async (req, res) => {
+    try {
+        await backupFile();
+        res.send("Backup berhasil dibuat.");
+    } catch (error) {
+        res.status(500).send("Terjadi kesalahan saat membuat backup.");
+    }
+});
+
 // GET /users - Mengambil semua pengguna
 router.get("/", async (req, res) => {
     const users = await readFile();
