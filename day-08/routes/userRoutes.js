@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { readFile, writeFile } = require("../utils/fileHandler");
+// Tambah rute untuk memicu backup:
+const { readFile, writeFile, backupFile } = require("../utils/fileHandler");
+
 
 // Fungsi untuk validasi ID dan email
 const validateInput = (id, email) => {
@@ -13,9 +15,6 @@ const validateInput = (id, email) => {
     }
     return null;
 };
-
-// Tambah rute untuk memicu backup:
-const { readFile, writeFile, backupFile } = require("../utils/fileHandler");
 
 // GET /users/backup - Membuat backup file JSON
 router.get("/backup", async (req, res) => {
