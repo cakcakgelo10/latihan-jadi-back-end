@@ -2,6 +2,18 @@ const express = require("express");
 const router = express.Router();
 const { readFile, writeFile } = require("../utils/fileHandler");
 
+// Fungsi untuk validasi ID dan email
+const validateInput = (id, email) => {
+    if (isNaN(id)) {
+        return "ID harus berupa angka.";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return "Email tidak valid.";
+    }
+    return null;
+};
+
 // GET /users - Mengambil semua pengguna
 router.get("/", async (req, res) => {
     const users = await readFile();
