@@ -88,6 +88,27 @@ router.put("/:id", async (req, res) => {
     res.send("Pengguna berhasil diperbarui.");
 });
 
+// Rute PUT (Memperbarui Pengguna):
+router.put("/:id", async (req, res) => {
+    const users = await readFile();
+    const userId = parseInt(req.params.id, 10);
+    const { name, email } = req.body;
+
+    const error = validateInput(userId, email);
+    if (error) {
+        return res.status(400).send(error);
+    }
+
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex === -1) {
+        return res.status(404).send("Pengguna tidak ditemukan.");
+    }
+
+    users[userIndex] = { ...users[userIndex], name, email };
+    await writeFile(users);
+    res.send("Pengguna berhasil diperbarui.");
+});
+
 // DELETE /users/:id - Menghapus pengguna berdasarkan ID
 router.delete("/:id", async (req, res) => {
     const users = await readFile();
